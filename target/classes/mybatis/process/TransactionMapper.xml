@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsm.ipay.dao.TransactionMapper">
+  <resultMap id="BaseResultMap" type="com.hsm.ipay.dto.Transaction">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="PAY_TYPE" jdbcType="VARCHAR" property="payType" />
+    <result column="PAY_MODE" jdbcType="VARCHAR" property="payMode" />
+    <result column="SUB_BANK_CODE" jdbcType="VARCHAR" property="subBankCode" />
+    <result column="APPLY_NO" jdbcType="VARCHAR" property="applyNo" />
+    <result column="APPLY_KEY" jdbcType="VARCHAR" property="applyKey" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="BATCH_NUMBER" jdbcType="VARCHAR" property="batchNumber" />
+    <result column="STATUS" jdbcType="TINYINT" property="status" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, PAY_TYPE, PAY_MODE, SUB_BANK_CODE, APPLY_NO, APPLY_KEY, URL, BATCH_NUMBER, STATUS, 
+    CREATE_DATE, UPDATE_DATE
+  </sql>
+  <select id="selectByExample" parameterType="com.hsm.ipay.dto.TransactionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_transaction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_transaction
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_transaction
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hsm.ipay.dto.TransactionExample">
+    delete from t_transaction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hsm.ipay.dto.Transaction">
+    insert into t_transaction (ID, PAY_TYPE, PAY_MODE, 
+      SUB_BANK_CODE, APPLY_NO, APPLY_KEY, 
+      URL, BATCH_NUMBER, STATUS, 
+      CREATE_DATE, UPDATE_DATE)
+    values (#{id,jdbcType=VARCHAR}, #{payType,jdbcType=VARCHAR}, #{payMode,jdbcType=VARCHAR}, 
+      #{subBankCode,jdbcType=VARCHAR}, #{applyNo,jdbcType=VARCHAR}, #{applyKey,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{batchNumber,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hsm.ipay.dto.Transaction">
+    insert into t_transaction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="payType != null">
+        PAY_TYPE,
+      </if>
+      <if test="payMode != null">
+        PAY_MODE,
+      </if>
+      <if test="subBankCode != null">
+        SUB_BANK_CODE,
+      </if>
+      <if test="applyNo != null">
+        APPLY_NO,
+      </if>
+      <if test="applyKey != null">
+        APPLY_KEY,
+      </if>
+      <if test="url != null">
+        URL,
+      </if>
+      <if test="batchNumber != null">
+        BATCH_NUMBER,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payMode != null">
+        #{payMode,jdbcType=VARCHAR},
+      </if>
+      <if test="subBankCode != null">
+        #{subBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="applyNo != null">
+        #{applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="applyKey != null">
+        #{applyKey,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNumber != null">
+        #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hsm.ipay.dto.TransactionExample" resultType="java.lang.Integer">
+    select count(*) from t_transaction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_transaction
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payType != null">
+        PAY_TYPE = #{record.payType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payMode != null">
+        PAY_MODE = #{record.payMode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subBankCode != null">
+        SUB_BANK_CODE = #{record.subBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyNo != null">
+        APPLY_NO = #{record.applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyKey != null">
+        APPLY_KEY = #{record.applyKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null">
+        URL = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchNumber != null">
+        BATCH_NUMBER = #{record.batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_transaction
+    set ID = #{record.id,jdbcType=VARCHAR},
+      PAY_TYPE = #{record.payType,jdbcType=VARCHAR},
+      PAY_MODE = #{record.payMode,jdbcType=VARCHAR},
+      SUB_BANK_CODE = #{record.subBankCode,jdbcType=VARCHAR},
+      APPLY_NO = #{record.applyNo,jdbcType=VARCHAR},
+      APPLY_KEY = #{record.applyKey,jdbcType=VARCHAR},
+      URL = #{record.url,jdbcType=VARCHAR},
+      BATCH_NUMBER = #{record.batchNumber,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=TINYINT},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsm.ipay.dto.Transaction">
+    update t_transaction
+    <set>
+      <if test="payType != null">
+        PAY_TYPE = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payMode != null">
+        PAY_MODE = #{payMode,jdbcType=VARCHAR},
+      </if>
+      <if test="subBankCode != null">
+        SUB_BANK_CODE = #{subBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="applyNo != null">
+        APPLY_NO = #{applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="applyKey != null">
+        APPLY_KEY = #{applyKey,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNumber != null">
+        BATCH_NUMBER = #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hsm.ipay.dto.Transaction">
+    update t_transaction
+    set PAY_TYPE = #{payType,jdbcType=VARCHAR},
+      PAY_MODE = #{payMode,jdbcType=VARCHAR},
+      SUB_BANK_CODE = #{subBankCode,jdbcType=VARCHAR},
+      APPLY_NO = #{applyNo,jdbcType=VARCHAR},
+      APPLY_KEY = #{applyKey,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      BATCH_NUMBER = #{batchNumber,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=TINYINT},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.hsm.ipay.dto.Transaction">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="PAY_TYPE" jdbcType="VARCHAR" property="payType" />
+    <result column="PAY_MODE" jdbcType="VARCHAR" property="payMode" />
+    <result column="SUB_BANK_CODE" jdbcType="VARCHAR" property="subBankCode" />
+    <result column="APPLY_NO" jdbcType="VARCHAR" property="applyNo" />
+    <result column="APPLY_KEY" jdbcType="VARCHAR" property="applyKey" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="BATCH_NUMBER" jdbcType="VARCHAR" property="batchNumber" />
+    <result column="STATUS" jdbcType="TINYINT" property="status" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, PAY_TYPE, PAY_MODE, SUB_BANK_CODE, APPLY_NO, APPLY_KEY, URL, BATCH_NUMBER, STATUS, 
+    CREATE_DATE, UPDATE_DATE
+  </sql>
+  <select id="selectByExample" parameterType="com.hsm.ipay.dto.TransactionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_transaction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_transaction
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_transaction
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hsm.ipay.dto.TransactionExample">
+    delete from t_transaction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hsm.ipay.dto.Transaction">
+    insert into t_transaction (ID, PAY_TYPE, PAY_MODE, 
+      SUB_BANK_CODE, APPLY_NO, APPLY_KEY, 
+      URL, BATCH_NUMBER, STATUS, 
+      CREATE_DATE, UPDATE_DATE)
+    values (#{id,jdbcType=VARCHAR}, #{payType,jdbcType=VARCHAR}, #{payMode,jdbcType=VARCHAR}, 
+      #{subBankCode,jdbcType=VARCHAR}, #{applyNo,jdbcType=VARCHAR}, #{applyKey,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{batchNumber,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hsm.ipay.dto.Transaction">
+    insert into t_transaction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="payType != null">
+        PAY_TYPE,
+      </if>
+      <if test="payMode != null">
+        PAY_MODE,
+      </if>
+      <if test="subBankCode != null">
+        SUB_BANK_CODE,
+      </if>
+      <if test="applyNo != null">
+        APPLY_NO,
+      </if>
+      <if test="applyKey != null">
+        APPLY_KEY,
+      </if>
+      <if test="url != null">
+        URL,
+      </if>
+      <if test="batchNumber != null">
+        BATCH_NUMBER,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payMode != null">
+        #{payMode,jdbcType=VARCHAR},
+      </if>
+      <if test="subBankCode != null">
+        #{subBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="applyNo != null">
+        #{applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="applyKey != null">
+        #{applyKey,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNumber != null">
+        #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hsm.ipay.dto.TransactionExample" resultType="java.lang.Integer">
+    select count(*) from t_transaction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_transaction
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payType != null">
+        PAY_TYPE = #{record.payType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payMode != null">
+        PAY_MODE = #{record.payMode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subBankCode != null">
+        SUB_BANK_CODE = #{record.subBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyNo != null">
+        APPLY_NO = #{record.applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyKey != null">
+        APPLY_KEY = #{record.applyKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null">
+        URL = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchNumber != null">
+        BATCH_NUMBER = #{record.batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateDate != null">
+        UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_transaction
+    set ID = #{record.id,jdbcType=VARCHAR},
+      PAY_TYPE = #{record.payType,jdbcType=VARCHAR},
+      PAY_MODE = #{record.payMode,jdbcType=VARCHAR},
+      SUB_BANK_CODE = #{record.subBankCode,jdbcType=VARCHAR},
+      APPLY_NO = #{record.applyNo,jdbcType=VARCHAR},
+      APPLY_KEY = #{record.applyKey,jdbcType=VARCHAR},
+      URL = #{record.url,jdbcType=VARCHAR},
+      BATCH_NUMBER = #{record.batchNumber,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=TINYINT},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{record.updateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsm.ipay.dto.Transaction">
+    update t_transaction
+    <set>
+      <if test="payType != null">
+        PAY_TYPE = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payMode != null">
+        PAY_MODE = #{payMode,jdbcType=VARCHAR},
+      </if>
+      <if test="subBankCode != null">
+        SUB_BANK_CODE = #{subBankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="applyNo != null">
+        APPLY_NO = #{applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="applyKey != null">
+        APPLY_KEY = #{applyKey,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNumber != null">
+        BATCH_NUMBER = #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hsm.ipay.dto.Transaction">
+    update t_transaction
+    set PAY_TYPE = #{payType,jdbcType=VARCHAR},
+      PAY_MODE = #{payMode,jdbcType=VARCHAR},
+      SUB_BANK_CODE = #{subBankCode,jdbcType=VARCHAR},
+      APPLY_NO = #{applyNo,jdbcType=VARCHAR},
+      APPLY_KEY = #{applyKey,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      BATCH_NUMBER = #{batchNumber,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=TINYINT},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

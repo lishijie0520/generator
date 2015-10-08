@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.genertech.lcm.biz.dao.GroundEvaluteMapper" >
+  <resultMap id="BaseResultMap" type="com.genertech.lcm.biz.dto.GroundEvaluteInfoVO" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="STARTPERSON" property="startperson" jdbcType="VARCHAR" />
+    <result column="STARTTIME" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="FENPERSON" property="fenperson" jdbcType="VARCHAR" />
+    <result column="FENTIME" property="fentime" jdbcType="TIMESTAMP" />
+    <result column="RESPPERSON" property="respperson" jdbcType="VARCHAR" />
+    <result column="FENREMARK" property="fenremark" jdbcType="VARCHAR" />
+    <result column="NO" property="no" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="DECIMAL" />
+    <result column="CHECKTYPE" property="checktype" jdbcType="DECIMAL" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="BANTIME" property="bantime" jdbcType="TIMESTAMP" />
+    <result column="FILENO" property="fileno" jdbcType="VARCHAR" />
+    <result column="FILEFROM" property="filefrom" jdbcType="VARCHAR" />
+    <result column="GAIBAN" property="gaiban" jdbcType="VARCHAR" />
+    <result column="NEEDHELP" property="needhelp" jdbcType="DECIMAL" />
+    <result column="NEEDPERSON" property="needperson" jdbcType="VARCHAR" />
+    <result column="STARTOPINION" property="startopinion" jdbcType="VARCHAR" />
+    <result column="INFOTIME" property="infotime" jdbcType="TIMESTAMP" />
+    <result column="SHIYONG" property="shiyong" jdbcType="DECIMAL" />
+    <result column="NEEDWORK" property="needwork" jdbcType="DECIMAL" />
+    <result column="NEWPROC" property="newproc" jdbcType="VARCHAR" />
+    <result column="PINGREMARK" property="pingremark" jdbcType="VARCHAR" />
+    <result column="PINGTIME" property="pingtime" jdbcType="TIMESTAMP" />
+    <result column="APPROVEPERSON" property="approveperson" jdbcType="VARCHAR" />
+    <result column="APPROVETIME" property="approvetime" jdbcType="TIMESTAMP" />
+    <result column="APPROVEREMARK" property="approveremark" jdbcType="VARCHAR" />
+    <result column="FILEURL" property="fileurl" jdbcType="VARCHAR" />
+    <result column="STARTTYPE" property="starttype" jdbcType="DECIMAL" />
+    <result column="STATE" property="state" jdbcType="DECIMAL" />
+    <result column="SEQ" property="seq" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, STARTPERSON, STARTTIME, FENPERSON, FENTIME, RESPPERSON, FENREMARK, NO, TYPE, 
+    CHECKTYPE, TITLE, BANTIME, FILENO, FILEFROM, GAIBAN, NEEDHELP, NEEDPERSON, STARTOPINION, 
+    INFOTIME, SHIYONG, NEEDWORK, NEWPROC, PINGREMARK, PINGTIME, APPROVEPERSON, APPROVETIME, 
+    APPROVEREMARK, FILEURL, STARTTYPE, STATE, SEQ
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_INFO_GROUND_EVALUTE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_INFO_GROUND_EVALUTE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.genertech.lcm.biz.dto.GroundEvalute" >
+    insert into T_INFO_GROUND_EVALUTE (ID, STARTPERSON, STARTTIME, 
+      FENPERSON, FENTIME, RESPPERSON, 
+      FENREMARK, NO, TYPE, 
+      CHECKTYPE, TITLE, BANTIME, 
+      FILENO, FILEFROM, GAIBAN, 
+      NEEDHELP, NEEDPERSON, STARTOPINION, 
+      INFOTIME, SHIYONG, NEEDWORK, 
+      NEWPROC, PINGREMARK, PINGTIME, 
+      APPROVEPERSON, APPROVETIME, APPROVEREMARK, 
+      FILEURL, STARTTYPE, STATE, 
+      SEQ)
+    values (#{id,jdbcType=VARCHAR}, #{startperson,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}, 
+      #{fenperson,jdbcType=VARCHAR}, #{fentime,jdbcType=TIMESTAMP}, #{respperson,jdbcType=VARCHAR}, 
+      #{fenremark,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{type,jdbcType=DECIMAL}, 
+      #{checktype,jdbcType=DECIMAL}, #{title,jdbcType=VARCHAR}, #{bantime,jdbcType=TIMESTAMP}, 
+      #{fileno,jdbcType=VARCHAR}, #{filefrom,jdbcType=VARCHAR}, #{gaiban,jdbcType=VARCHAR}, 
+      #{needhelp,jdbcType=DECIMAL}, #{needperson,jdbcType=VARCHAR}, #{startopinion,jdbcType=VARCHAR}, 
+      #{infotime,jdbcType=TIMESTAMP}, #{shiyong,jdbcType=DECIMAL}, #{needwork,jdbcType=DECIMAL}, 
+      #{newproc,jdbcType=VARCHAR}, #{pingremark,jdbcType=VARCHAR}, #{pingtime,jdbcType=TIMESTAMP}, 
+      #{approveperson,jdbcType=VARCHAR}, #{approvetime,jdbcType=TIMESTAMP}, #{approveremark,jdbcType=VARCHAR}, 
+      #{fileurl,jdbcType=VARCHAR}, #{starttype,jdbcType=DECIMAL}, #{state,jdbcType=DECIMAL}, 
+      #{seq,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.genertech.lcm.biz.dto.GroundEvalute" >
+    insert into T_INFO_GROUND_EVALUTE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="startperson != null" >
+        STARTPERSON,
+      </if>
+      <if test="starttime != null" >
+        STARTTIME,
+      </if>
+      <if test="fenperson != null" >
+        FENPERSON,
+      </if>
+      <if test="fentime != null" >
+        FENTIME,
+      </if>
+      <if test="respperson != null" >
+        RESPPERSON,
+      </if>
+      <if test="fenremark != null" >
+        FENREMARK,
+      </if>
+      <if test="no != null" >
+        NO,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="checktype != null" >
+        CHECKTYPE,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="bantime != null" >
+        BANTIME,
+      </if>
+      <if test="fileno != null" >
+        FILENO,
+      </if>
+      <if test="filefrom != null" >
+        FILEFROM,
+      </if>
+      <if test="gaiban != null" >
+        GAIBAN,
+      </if>
+      <if test="needhelp != null" >
+        NEEDHELP,
+      </if>
+      <if test="needperson != null" >
+        NEEDPERSON,
+      </if>
+      <if test="startopinion != null" >
+        STARTOPINION,
+      </if>
+      <if test="infotime != null" >
+        INFOTIME,
+      </if>
+      <if test="shiyong != null" >
+        SHIYONG,
+      </if>
+      <if test="needwork != null" >
+        NEEDWORK,
+      </if>
+      <if test="newproc != null" >
+        NEWPROC,
+      </if>
+      <if test="pingremark != null" >
+        PINGREMARK,
+      </if>
+      <if test="pingtime != null" >
+        PINGTIME,
+      </if>
+      <if test="approveperson != null" >
+        APPROVEPERSON,
+      </if>
+      <if test="approvetime != null" >
+        APPROVETIME,
+      </if>
+      <if test="approveremark != null" >
+        APPROVEREMARK,
+      </if>
+      <if test="fileurl != null" >
+        FILEURL,
+      </if>
+      <if test="starttype != null" >
+        STARTTYPE,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="seq != null" >
+        SEQ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="startperson != null" >
+        #{startperson,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fenperson != null" >
+        #{fenperson,jdbcType=VARCHAR},
+      </if>
+      <if test="fentime != null" >
+        #{fentime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="respperson != null" >
+        #{respperson,jdbcType=VARCHAR},
+      </if>
+      <if test="fenremark != null" >
+        #{fenremark,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null" >
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=DECIMAL},
+      </if>
+      <if test="checktype != null" >
+        #{checktype,jdbcType=DECIMAL},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="bantime != null" >
+        #{bantime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileno != null" >
+        #{fileno,jdbcType=VARCHAR},
+      </if>
+      <if test="filefrom != null" >
+        #{filefrom,jdbcType=VARCHAR},
+      </if>
+      <if test="gaiban != null" >
+        #{gaiban,jdbcType=VARCHAR},
+      </if>
+      <if test="needhelp != null" >
+        #{needhelp,jdbcType=DECIMAL},
+      </if>
+      <if test="needperson != null" >
+        #{needperson,jdbcType=VARCHAR},
+      </if>
+      <if test="startopinion != null" >
+        #{startopinion,jdbcType=VARCHAR},
+      </if>
+      <if test="infotime != null" >
+        #{infotime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shiyong != null" >
+        #{shiyong,jdbcType=DECIMAL},
+      </if>
+      <if test="needwork != null" >
+        #{needwork,jdbcType=DECIMAL},
+      </if>
+      <if test="newproc != null" >
+        #{newproc,jdbcType=VARCHAR},
+      </if>
+      <if test="pingremark != null" >
+        #{pingremark,jdbcType=VARCHAR},
+      </if>
+      <if test="pingtime != null" >
+        #{pingtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveperson != null" >
+        #{approveperson,jdbcType=VARCHAR},
+      </if>
+      <if test="approvetime != null" >
+        #{approvetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveremark != null" >
+        #{approveremark,jdbcType=VARCHAR},
+      </if>
+      <if test="fileurl != null" >
+        #{fileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="starttype != null" >
+        #{starttype,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.genertech.lcm.biz.dto.GroundEvalute" >
+    update T_INFO_GROUND_EVALUTE
+    <set >
+      <if test="startperson != null" >
+        STARTPERSON = #{startperson,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        STARTTIME = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fenperson != null" >
+        FENPERSON = #{fenperson,jdbcType=VARCHAR},
+      </if>
+      <if test="fentime != null" >
+        FENTIME = #{fentime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="respperson != null" >
+        RESPPERSON = #{respperson,jdbcType=VARCHAR},
+      </if>
+      <if test="fenremark != null" >
+        FENREMARK = #{fenremark,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null" >
+        NO = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=DECIMAL},
+      </if>
+      <if test="checktype != null" >
+        CHECKTYPE = #{checktype,jdbcType=DECIMAL},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="bantime != null" >
+        BANTIME = #{bantime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileno != null" >
+        FILENO = #{fileno,jdbcType=VARCHAR},
+      </if>
+      <if test="filefrom != null" >
+        FILEFROM = #{filefrom,jdbcType=VARCHAR},
+      </if>
+      <if test="gaiban != null" >
+        GAIBAN = #{gaiban,jdbcType=VARCHAR},
+      </if>
+      <if test="needhelp != null" >
+        NEEDHELP = #{needhelp,jdbcType=DECIMAL},
+      </if>
+      <if test="needperson != null" >
+        NEEDPERSON = #{needperson,jdbcType=VARCHAR},
+      </if>
+      <if test="startopinion != null" >
+        STARTOPINION = #{startopinion,jdbcType=VARCHAR},
+      </if>
+      <if test="infotime != null" >
+        INFOTIME = #{infotime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shiyong != null" >
+        SHIYONG = #{shiyong,jdbcType=DECIMAL},
+      </if>
+      <if test="needwork != null" >
+        NEEDWORK = #{needwork,jdbcType=DECIMAL},
+      </if>
+      <if test="newproc != null" >
+        NEWPROC = #{newproc,jdbcType=VARCHAR},
+      </if>
+      <if test="pingremark != null" >
+        PINGREMARK = #{pingremark,jdbcType=VARCHAR},
+      </if>
+      <if test="pingtime != null" >
+        PINGTIME = #{pingtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveperson != null" >
+        APPROVEPERSON = #{approveperson,jdbcType=VARCHAR},
+      </if>
+      <if test="approvetime != null" >
+        APPROVETIME = #{approvetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveremark != null" >
+        APPROVEREMARK = #{approveremark,jdbcType=VARCHAR},
+      </if>
+      <if test="fileurl != null" >
+        FILEURL = #{fileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="starttype != null" >
+        STARTTYPE = #{starttype,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=DECIMAL},
+      </if>
+      <if test="seq != null" >
+        SEQ = #{seq,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.genertech.lcm.biz.dto.GroundEvalute" >
+    update T_INFO_GROUND_EVALUTE
+    set STARTPERSON = #{startperson,jdbcType=VARCHAR},
+      STARTTIME = #{starttime,jdbcType=TIMESTAMP},
+      FENPERSON = #{fenperson,jdbcType=VARCHAR},
+      FENTIME = #{fentime,jdbcType=TIMESTAMP},
+      RESPPERSON = #{respperson,jdbcType=VARCHAR},
+      FENREMARK = #{fenremark,jdbcType=VARCHAR},
+      NO = #{no,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=DECIMAL},
+      CHECKTYPE = #{checktype,jdbcType=DECIMAL},
+      TITLE = #{title,jdbcType=VARCHAR},
+      BANTIME = #{bantime,jdbcType=TIMESTAMP},
+      FILENO = #{fileno,jdbcType=VARCHAR},
+      FILEFROM = #{filefrom,jdbcType=VARCHAR},
+      GAIBAN = #{gaiban,jdbcType=VARCHAR},
+      NEEDHELP = #{needhelp,jdbcType=DECIMAL},
+      NEEDPERSON = #{needperson,jdbcType=VARCHAR},
+      STARTOPINION = #{startopinion,jdbcType=VARCHAR},
+      INFOTIME = #{infotime,jdbcType=TIMESTAMP},
+      SHIYONG = #{shiyong,jdbcType=DECIMAL},
+      NEEDWORK = #{needwork,jdbcType=DECIMAL},
+      NEWPROC = #{newproc,jdbcType=VARCHAR},
+      PINGREMARK = #{pingremark,jdbcType=VARCHAR},
+      PINGTIME = #{pingtime,jdbcType=TIMESTAMP},
+      APPROVEPERSON = #{approveperson,jdbcType=VARCHAR},
+      APPROVETIME = #{approvetime,jdbcType=TIMESTAMP},
+      APPROVEREMARK = #{approveremark,jdbcType=VARCHAR},
+      FILEURL = #{fileurl,jdbcType=VARCHAR},
+      STARTTYPE = #{starttype,jdbcType=DECIMAL},
+      STATE = #{state,jdbcType=DECIMAL},
+      SEQ = #{seq,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

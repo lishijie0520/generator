@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genertech.lcm.biz.dao.LseSwStatusMapper">
+  <resultMap id="BaseResultMap" type="com.genertech.lcm.biz.dto.LseSwStatus">
+    <id column="SW_ID" jdbcType="VARCHAR" property="swId" />
+    <result column="SW_PARTNUMBER" jdbcType="VARCHAR" property="swPartnumber" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="AIRPLANE_ID" jdbcType="VARCHAR" property="airplaneId" />
+    <result column="SOURCE" jdbcType="DECIMAL" property="source" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SW_ID, SW_PARTNUMBER, STATUS, CREATE_TIME, CREATOR, AIRPLANE_ID, SOURCE
+  </sql>
+  <select id="selectByExample" parameterType="com.genertech.lcm.biz.dto.LseSwStatusExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from T_LSE_SW_STATUS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_LSE_SW_STATUS
+    where SW_ID = #{swId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from T_LSE_SW_STATUS
+    where SW_ID = #{swId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.genertech.lcm.biz.dto.LseSwStatusExample">
+    delete from T_LSE_SW_STATUS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.genertech.lcm.biz.dto.LseSwStatus">
+    insert into T_LSE_SW_STATUS (SW_ID, SW_PARTNUMBER, STATUS, 
+      CREATE_TIME, CREATOR, AIRPLANE_ID, 
+      SOURCE)
+    values (#{swId,jdbcType=VARCHAR}, #{swPartnumber,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, #{airplaneId,jdbcType=VARCHAR}, 
+      #{source,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.genertech.lcm.biz.dto.LseSwStatus">
+    insert into T_LSE_SW_STATUS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="swId != null">
+        SW_ID,
+      </if>
+      <if test="swPartnumber != null">
+        SW_PARTNUMBER,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="airplaneId != null">
+        AIRPLANE_ID,
+      </if>
+      <if test="source != null">
+        SOURCE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="swId != null">
+        #{swId,jdbcType=VARCHAR},
+      </if>
+      <if test="swPartnumber != null">
+        #{swPartnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="airplaneId != null">
+        #{airplaneId,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.genertech.lcm.biz.dto.LseSwStatusExample" resultType="java.lang.Integer">
+    select count(*) from T_LSE_SW_STATUS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update T_LSE_SW_STATUS
+    <set>
+      <if test="record.swId != null">
+        SW_ID = #{record.swId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.swPartnumber != null">
+        SW_PARTNUMBER = #{record.swPartnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null">
+        CREATOR = #{record.creator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airplaneId != null">
+        AIRPLANE_ID = #{record.airplaneId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null">
+        SOURCE = #{record.source,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update T_LSE_SW_STATUS
+    set SW_ID = #{record.swId,jdbcType=VARCHAR},
+      SW_PARTNUMBER = #{record.swPartnumber,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{record.creator,jdbcType=VARCHAR},
+      AIRPLANE_ID = #{record.airplaneId,jdbcType=VARCHAR},
+      SOURCE = #{record.source,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.genertech.lcm.biz.dto.LseSwStatus">
+    update T_LSE_SW_STATUS
+    <set>
+      <if test="swPartnumber != null">
+        SW_PARTNUMBER = #{swPartnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="airplaneId != null">
+        AIRPLANE_ID = #{airplaneId,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        SOURCE = #{source,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SW_ID = #{swId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.genertech.lcm.biz.dto.LseSwStatus">
+    update T_LSE_SW_STATUS
+    set SW_PARTNUMBER = #{swPartnumber,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{creator,jdbcType=VARCHAR},
+      AIRPLANE_ID = #{airplaneId,jdbcType=VARCHAR},
+      SOURCE = #{source,jdbcType=DECIMAL}
+    where SW_ID = #{swId,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.genertech.lcm.biz.dto.LseSwStatus">
+    <id column="SW_ID" jdbcType="VARCHAR" property="swId" />
+    <result column="SW_PARTNUMBER" jdbcType="VARCHAR" property="swPartnumber" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SW_ID, SW_PARTNUMBER, STATUS, CREATE_TIME, CREATOR
+  </sql>
+  <select id="selectByExample" parameterType="com.genertech.lcm.biz.dto.LseSwStatusExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from T_LSE_SW_STATUS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_LSE_SW_STATUS
+    where SW_ID = #{swId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from T_LSE_SW_STATUS
+    where SW_ID = #{swId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.genertech.lcm.biz.dto.LseSwStatusExample">
+    delete from T_LSE_SW_STATUS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.genertech.lcm.biz.dto.LseSwStatus">
+    insert into T_LSE_SW_STATUS (SW_ID, SW_PARTNUMBER, STATUS, 
+      CREATE_TIME, CREATOR)
+    values (#{swId,jdbcType=VARCHAR}, #{swPartnumber,jdbcType=VARCHAR}, #{status,jdbcType=DECIMAL}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.genertech.lcm.biz.dto.LseSwStatus">
+    insert into T_LSE_SW_STATUS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="swId != null">
+        SW_ID,
+      </if>
+      <if test="swPartnumber != null">
+        SW_PARTNUMBER,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="swId != null">
+        #{swId,jdbcType=VARCHAR},
+      </if>
+      <if test="swPartnumber != null">
+        #{swPartnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.genertech.lcm.biz.dto.LseSwStatusExample" resultType="java.lang.Integer">
+    select count(*) from T_LSE_SW_STATUS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update T_LSE_SW_STATUS
+    <set>
+      <if test="record.swId != null">
+        SW_ID = #{record.swId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.swPartnumber != null">
+        SW_PARTNUMBER = #{record.swPartnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null">
+        CREATOR = #{record.creator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update T_LSE_SW_STATUS
+    set SW_ID = #{record.swId,jdbcType=VARCHAR},
+      SW_PARTNUMBER = #{record.swPartnumber,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{record.creator,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.genertech.lcm.biz.dto.LseSwStatus">
+    update T_LSE_SW_STATUS
+    <set>
+      <if test="swPartnumber != null">
+        SW_PARTNUMBER = #{swPartnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SW_ID = #{swId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.genertech.lcm.biz.dto.LseSwStatus">
+    update T_LSE_SW_STATUS
+    set SW_PARTNUMBER = #{swPartnumber,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATOR = #{creator,jdbcType=VARCHAR}
+    where SW_ID = #{swId,jdbcType=VARCHAR}
+  </update>
+</mapper>

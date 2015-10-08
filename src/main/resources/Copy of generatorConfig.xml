@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+<!-- 数据库驱动-->
+	<classPathEntry	location="D:\gener-dev\apache-maven-3.0.4\repository\com\oracle\ojdbc16\1.0\ojdbc16-1.0.jar"/>
+	<context id="DB2Tables"	targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressDate" value="true"/>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true"/>
+		</commentGenerator>
+		<!--数据库链接URL，用户名、密码 -->
+		<!--
+		<jdbcConnection driverClass="oracle.jdbc.OracleDriver" connectionURL="jdbc:oracle:thin:@10.10.152.75:1521:orcl" userId="lcm007" password="lcm007">
+		</jdbcConnection>
+		-->
+		<!-- <jdbcConnection driverClass="oracle.jdbc.OracleDriver" connectionURL="jdbc:oracle:thin:@10.10.152.51:1521:orcl" userId="lcm007" password="lcm007">
+		</jdbcConnection> -->
+		<jdbcConnection driverClass="oracle.jdbc.OracleDriver" connectionURL="jdbc:oracle:thin:@10.9.202.191:1521:lcmtest" userId="lcm003" password="lcm003">
+		</jdbcConnection>
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false"/>
+		</javaTypeResolver>
+		<!-- 生成模型的包名和位置-->
+		<javaModelGenerator targetPackage="com.genertech.lcm.biz.dto" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true"/>
+			<property name="trimStrings" value="true"/>
+		</javaModelGenerator>
+		<!-- 生成映射文件的包名和位置-->
+		<sqlMapGenerator targetPackage="mybatis.process" targetProject="src/main/resources">
+			<property name="enableSubPackages" value="true"/>
+		</sqlMapGenerator>
+		<!-- 生成DAO的包名和位置-->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.genertech.lcm.biz.dao" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true"/>
+		</javaClientGenerator>
+		<!-- 要生成哪些表-->
+		<!-- <table tableName="t_info_ground_evalute"  domainObjectName="GroundEvalute" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table> -->		
+		<table tableName="t_ddm_proc"  domainObjectName="DdmProc" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>		
+		<!--
+		<table tableName="t_info_software" domainObjectName="softwareDto" enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true"></table>
+		
+		<table tableName="t_info_env" domainObjectName="Environment"/>
+		<table tableName="t_info_devsoft" domainObjectName="DevSoft"/>
+		<table tableName="T_ENV_DEVSOFT_CERT" domainObjectName="EnvDevSoftCert"/>
+		<table tableName="t_info_cert" domainObjectName="Cert"/>
+		-->
+	</context>
+</generatorConfiguration>

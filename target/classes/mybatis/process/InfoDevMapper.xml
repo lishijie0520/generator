@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.genertech.lcm.biz.dao.InfoDevMapper" >
+  <resultMap id="BaseResultMap" type="com.genertech.lcm.biz.dto.InfoDev" >
+    <id column="DEV_ID" property="devId" jdbcType="VARCHAR" />
+    <result column="DEV_NAME" property="devName" jdbcType="VARCHAR" />
+    <result column="DEV_TYPE" property="devType" jdbcType="DECIMAL" />
+    <result column="SN" property="sn" jdbcType="VARCHAR" />
+    <result column="PURPOSE" property="purpose" jdbcType="VARCHAR" />
+    <result column="COMMON_NAME" property="commonName" jdbcType="VARCHAR" />
+    <result column="LIB_DEVICE_NAME" property="libDeviceName" jdbcType="VARCHAR" />
+    <result column="LIB_DEVICE_PASSWORD" property="libDevicePassword" jdbcType="VARCHAR" />
+    <result column="LIB_USER_NAME" property="libUserName" jdbcType="VARCHAR" />
+    <result column="LIB_USER_PASSWORD" property="libUserPassword" jdbcType="VARCHAR" />
+    <result column="DEPT_ID" property="deptId" jdbcType="VARCHAR" />
+    <result column="HOLDERS" property="holders" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CREATE_DATETIME" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATETIME" property="updateDatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DEV_ID, DEV_NAME, DEV_TYPE, SN, PURPOSE, COMMON_NAME, LIB_DEVICE_NAME, LIB_DEVICE_PASSWORD, 
+    LIB_USER_NAME, LIB_USER_PASSWORD, DEPT_ID, HOLDERS, STATUS, START_TIME, END_TIME, 
+    REMARK, CREATE_USER, CREATE_DATETIME, UPDATE_USER, UPDATE_DATETIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.genertech.lcm.biz.dto.InfoDevExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from T_INFO_DEV
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_INFO_DEV
+    where DEV_ID = #{devId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_INFO_DEV
+    where DEV_ID = #{devId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.genertech.lcm.biz.dto.InfoDev" >
+    insert into T_INFO_DEV (DEV_ID, DEV_NAME, DEV_TYPE, 
+      SN, PURPOSE, COMMON_NAME, 
+      LIB_DEVICE_NAME, LIB_DEVICE_PASSWORD, LIB_USER_NAME, 
+      LIB_USER_PASSWORD, DEPT_ID, HOLDERS, 
+      STATUS, START_TIME, END_TIME, 
+      REMARK, CREATE_USER, CREATE_DATETIME, 
+      UPDATE_USER, UPDATE_DATETIME)
+    values (#{devId,jdbcType=VARCHAR}, #{devName,jdbcType=VARCHAR}, #{devType,jdbcType=DECIMAL}, 
+      #{sn,jdbcType=VARCHAR}, #{purpose,jdbcType=VARCHAR}, #{commonName,jdbcType=VARCHAR}, 
+      #{libDeviceName,jdbcType=VARCHAR}, #{libDevicePassword,jdbcType=VARCHAR}, #{libUserName,jdbcType=VARCHAR}, 
+      #{libUserPassword,jdbcType=VARCHAR}, #{deptId,jdbcType=VARCHAR}, #{holders,jdbcType=VARCHAR}, 
+      #{status,jdbcType=DECIMAL}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, #{createDatetime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{updateDatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.genertech.lcm.biz.dto.InfoDev" >
+    insert into T_INFO_DEV
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="devId != null" >
+        DEV_ID,
+      </if>
+      <if test="devName != null" >
+        DEV_NAME,
+      </if>
+      <if test="devType != null" >
+        DEV_TYPE,
+      </if>
+      <if test="sn != null" >
+        SN,
+      </if>
+      <if test="purpose != null" >
+        PURPOSE,
+      </if>
+      <if test="commonName != null" >
+        COMMON_NAME,
+      </if>
+      <if test="libDeviceName != null" >
+        LIB_DEVICE_NAME,
+      </if>
+      <if test="libDevicePassword != null" >
+        LIB_DEVICE_PASSWORD,
+      </if>
+      <if test="libUserName != null" >
+        LIB_USER_NAME,
+      </if>
+      <if test="libUserPassword != null" >
+        LIB_USER_PASSWORD,
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID,
+      </if>
+      <if test="holders != null" >
+        HOLDERS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="createDatetime != null" >
+        CREATE_DATETIME,
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER,
+      </if>
+      <if test="updateDatetime != null" >
+        UPDATE_DATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="devId != null" >
+        #{devId,jdbcType=VARCHAR},
+      </if>
+      <if test="devName != null" >
+        #{devName,jdbcType=VARCHAR},
+      </if>
+      <if test="devType != null" >
+        #{devType,jdbcType=DECIMAL},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="commonName != null" >
+        #{commonName,jdbcType=VARCHAR},
+      </if>
+      <if test="libDeviceName != null" >
+        #{libDeviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="libDevicePassword != null" >
+        #{libDevicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="libUserName != null" >
+        #{libUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="libUserPassword != null" >
+        #{libUserPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="holders != null" >
+        #{holders,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.genertech.lcm.biz.dto.InfoDevExample" resultType="java.lang.Integer" >
+    select count(*) from T_INFO_DEV
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_INFO_DEV
+    <set >
+      <if test="record.devId != null" >
+        DEV_ID = #{record.devId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.devName != null" >
+        DEV_NAME = #{record.devName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.devType != null" >
+        DEV_TYPE = #{record.devType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sn != null" >
+        SN = #{record.sn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purpose != null" >
+        PURPOSE = #{record.purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commonName != null" >
+        COMMON_NAME = #{record.commonName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.libDeviceName != null" >
+        LIB_DEVICE_NAME = #{record.libDeviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.libDevicePassword != null" >
+        LIB_DEVICE_PASSWORD = #{record.libDevicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.libUserName != null" >
+        LIB_USER_NAME = #{record.libUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.libUserPassword != null" >
+        LIB_USER_PASSWORD = #{record.libUserPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptId != null" >
+        DEPT_ID = #{record.deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.holders != null" >
+        HOLDERS = #{record.holders,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.startTime != null" >
+        START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null" >
+        CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDatetime != null" >
+        CREATE_DATETIME = #{record.createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null" >
+        UPDATE_USER = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDatetime != null" >
+        UPDATE_DATETIME = #{record.updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_INFO_DEV
+    set DEV_ID = #{record.devId,jdbcType=VARCHAR},
+      DEV_NAME = #{record.devName,jdbcType=VARCHAR},
+      DEV_TYPE = #{record.devType,jdbcType=DECIMAL},
+      SN = #{record.sn,jdbcType=VARCHAR},
+      PURPOSE = #{record.purpose,jdbcType=VARCHAR},
+      COMMON_NAME = #{record.commonName,jdbcType=VARCHAR},
+      LIB_DEVICE_NAME = #{record.libDeviceName,jdbcType=VARCHAR},
+      LIB_DEVICE_PASSWORD = #{record.libDevicePassword,jdbcType=VARCHAR},
+      LIB_USER_NAME = #{record.libUserName,jdbcType=VARCHAR},
+      LIB_USER_PASSWORD = #{record.libUserPassword,jdbcType=VARCHAR},
+      DEPT_ID = #{record.deptId,jdbcType=VARCHAR},
+      HOLDERS = #{record.holders,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      START_TIME = #{record.startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{record.endTime,jdbcType=TIMESTAMP},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      CREATE_DATETIME = #{record.createDatetime,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{record.updateUser,jdbcType=VARCHAR},
+      UPDATE_DATETIME = #{record.updateDatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.genertech.lcm.biz.dto.InfoDev" >
+    update T_INFO_DEV
+    <set >
+      <if test="devName != null" >
+        DEV_NAME = #{devName,jdbcType=VARCHAR},
+      </if>
+      <if test="devType != null" >
+        DEV_TYPE = #{devType,jdbcType=DECIMAL},
+      </if>
+      <if test="sn != null" >
+        SN = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        PURPOSE = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="commonName != null" >
+        COMMON_NAME = #{commonName,jdbcType=VARCHAR},
+      </if>
+      <if test="libDeviceName != null" >
+        LIB_DEVICE_NAME = #{libDeviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="libDevicePassword != null" >
+        LIB_DEVICE_PASSWORD = #{libDevicePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="libUserName != null" >
+        LIB_USER_NAME = #{libUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="libUserPassword != null" >
+        LIB_USER_PASSWORD = #{libUserPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID = #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="holders != null" >
+        HOLDERS = #{holders,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        CREATE_DATETIME = #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where DEV_ID = #{devId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.genertech.lcm.biz.dto.InfoDev" >
+    update T_INFO_DEV
+    set DEV_NAME = #{devName,jdbcType=VARCHAR},
+      DEV_TYPE = #{devType,jdbcType=DECIMAL},
+      SN = #{sn,jdbcType=VARCHAR},
+      PURPOSE = #{purpose,jdbcType=VARCHAR},
+      COMMON_NAME = #{commonName,jdbcType=VARCHAR},
+      LIB_DEVICE_NAME = #{libDeviceName,jdbcType=VARCHAR},
+      LIB_DEVICE_PASSWORD = #{libDevicePassword,jdbcType=VARCHAR},
+      LIB_USER_NAME = #{libUserName,jdbcType=VARCHAR},
+      LIB_USER_PASSWORD = #{libUserPassword,jdbcType=VARCHAR},
+      DEPT_ID = #{deptId,jdbcType=VARCHAR},
+      HOLDERS = #{holders,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_DATETIME = #{createDatetime,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_DATETIME = #{updateDatetime,jdbcType=TIMESTAMP}
+    where DEV_ID = #{devId,jdbcType=VARCHAR}
+  </update>
+</mapper>

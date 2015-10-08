@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.genertech.lcm.aircraftinfo.dao.RulePartnoMapper" >
+  <resultMap id="BaseResultMap" type="com.genertech.lcm.aircraftinfo.dto.RulePartno" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CATEGORY" property="category" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="SUBTYPE" property="subtype" jdbcType="VARCHAR" />
+    <result column="PATTERN" property="pattern" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="SEQ" property="seq" jdbcType="DECIMAL" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="SEQ_MIN" property="seqMin" jdbcType="DECIMAL" />
+    <result column="SEQ_MAX" property="seqMax" jdbcType="DECIMAL" />
+    <result column="SW_SUBTYPE" property="swSubtype" jdbcType="VARCHAR" />
+    <result column="ATA_ID" property="ataId" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CATEGORY, TYPE, SUBTYPE, PATTERN, CODE, SEQ, REMARK, SEQ_MIN, SEQ_MAX, SW_SUBTYPE, 
+    ATA_ID, STATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.genertech.lcm.aircraftinfo.dto.RulePartnoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from T_RULE_PARTNO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_RULE_PARTNO
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_RULE_PARTNO
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.genertech.lcm.aircraftinfo.dto.RulePartno" >
+    insert into T_RULE_PARTNO (ID, CATEGORY, TYPE, 
+      SUBTYPE, PATTERN, CODE, 
+      SEQ, REMARK, SEQ_MIN, 
+      SEQ_MAX, SW_SUBTYPE, ATA_ID, 
+      STATUS)
+    values (#{id,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{subtype,jdbcType=VARCHAR}, #{pattern,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{seq,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{seqMin,jdbcType=DECIMAL}, 
+      #{seqMax,jdbcType=DECIMAL}, #{swSubtype,jdbcType=VARCHAR}, #{ataId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.genertech.lcm.aircraftinfo.dto.RulePartno" >
+    insert into T_RULE_PARTNO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="category != null" >
+        CATEGORY,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="subtype != null" >
+        SUBTYPE,
+      </if>
+      <if test="pattern != null" >
+        PATTERN,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="seq != null" >
+        SEQ,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="seqMin != null" >
+        SEQ_MIN,
+      </if>
+      <if test="seqMax != null" >
+        SEQ_MAX,
+      </if>
+      <if test="swSubtype != null" >
+        SW_SUBTYPE,
+      </if>
+      <if test="ataId != null" >
+        ATA_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="subtype != null" >
+        #{subtype,jdbcType=VARCHAR},
+      </if>
+      <if test="pattern != null" >
+        #{pattern,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="seqMin != null" >
+        #{seqMin,jdbcType=DECIMAL},
+      </if>
+      <if test="seqMax != null" >
+        #{seqMax,jdbcType=DECIMAL},
+      </if>
+      <if test="swSubtype != null" >
+        #{swSubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="ataId != null" >
+        #{ataId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.genertech.lcm.aircraftinfo.dto.RulePartnoExample" resultType="java.lang.Integer" >
+    select count(*) from T_RULE_PARTNO
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_RULE_PARTNO
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null" >
+        CATEGORY = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subtype != null" >
+        SUBTYPE = #{record.subtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pattern != null" >
+        PATTERN = #{record.pattern,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null" >
+        CODE = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seq != null" >
+        SEQ = #{record.seq,jdbcType=DECIMAL},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seqMin != null" >
+        SEQ_MIN = #{record.seqMin,jdbcType=DECIMAL},
+      </if>
+      <if test="record.seqMax != null" >
+        SEQ_MAX = #{record.seqMax,jdbcType=DECIMAL},
+      </if>
+      <if test="record.swSubtype != null" >
+        SW_SUBTYPE = #{record.swSubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ataId != null" >
+        ATA_ID = #{record.ataId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_RULE_PARTNO
+    set ID = #{record.id,jdbcType=VARCHAR},
+      CATEGORY = #{record.category,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      SUBTYPE = #{record.subtype,jdbcType=VARCHAR},
+      PATTERN = #{record.pattern,jdbcType=VARCHAR},
+      CODE = #{record.code,jdbcType=VARCHAR},
+      SEQ = #{record.seq,jdbcType=DECIMAL},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      SEQ_MIN = #{record.seqMin,jdbcType=DECIMAL},
+      SEQ_MAX = #{record.seqMax,jdbcType=DECIMAL},
+      SW_SUBTYPE = #{record.swSubtype,jdbcType=VARCHAR},
+      ATA_ID = #{record.ataId,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.genertech.lcm.aircraftinfo.dto.RulePartno" >
+    update T_RULE_PARTNO
+    <set >
+      <if test="category != null" >
+        CATEGORY = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="subtype != null" >
+        SUBTYPE = #{subtype,jdbcType=VARCHAR},
+      </if>
+      <if test="pattern != null" >
+        PATTERN = #{pattern,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null" >
+        SEQ = #{seq,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="seqMin != null" >
+        SEQ_MIN = #{seqMin,jdbcType=DECIMAL},
+      </if>
+      <if test="seqMax != null" >
+        SEQ_MAX = #{seqMax,jdbcType=DECIMAL},
+      </if>
+      <if test="swSubtype != null" >
+        SW_SUBTYPE = #{swSubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="ataId != null" >
+        ATA_ID = #{ataId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.genertech.lcm.aircraftinfo.dto.RulePartno" >
+    update T_RULE_PARTNO
+    set CATEGORY = #{category,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      SUBTYPE = #{subtype,jdbcType=VARCHAR},
+      PATTERN = #{pattern,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      SEQ = #{seq,jdbcType=DECIMAL},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      SEQ_MIN = #{seqMin,jdbcType=DECIMAL},
+      SEQ_MAX = #{seqMax,jdbcType=DECIMAL},
+      SW_SUBTYPE = #{swSubtype,jdbcType=VARCHAR},
+      ATA_ID = #{ataId,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

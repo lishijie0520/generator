@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.genertech.lcm.aircraftinfo.dao.certDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.genertech.lcm.aircraftinfo.dto.certDetail" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CERTAPPROVEDATE" property="certapprovedate" jdbcType="TIMESTAMP" />
+    <result column="CERTREJECTDATE" property="certrejectdate" jdbcType="TIMESTAMP" />
+    <result column="CERTSIGNDATE" property="certsigndate" jdbcType="TIMESTAMP" />
+    <result column="CERTSERIALNUMBER" property="certserialnumber" jdbcType="VARCHAR" />
+    <result column="CERTNOTBEFORE" property="certnotbefore" jdbcType="TIMESTAMP" />
+    <result column="CERTNOTAFTER" property="certnotafter" jdbcType="TIMESTAMP" />
+    <result column="ISSUERHASH" property="issuerhash" jdbcType="VARCHAR" />
+    <result column="ISSUERDN" property="issuerdn" jdbcType="VARCHAR" />
+    <result column="SUBJECTHASH" property="subjecthash" jdbcType="VARCHAR" />
+    <result column="SUBJECTDN" property="subjectdn" jdbcType="VARCHAR" />
+    <result column="SUSPENDDATE" property="suspenddate" jdbcType="TIMESTAMP" />
+    <result column="REVOKEDATE" property="revokedate" jdbcType="TIMESTAMP" />
+    <result column="REVOKEREASON" property="revokereason" jdbcType="VARCHAR" />
+    <result column="RENEWALDATE" property="renewaldate" jdbcType="TIMESTAMP" />
+    <result column="RENEWALPREVID" property="renewalprevid" jdbcType="DECIMAL" />
+    <result column="REQOVERRIDEVALIDITY" property="reqoverridevalidity" jdbcType="TIMESTAMP" />
+    <result column="CERT_ID" property="certId" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, CERTAPPROVEDATE, CERTREJECTDATE, CERTSIGNDATE, CERTSERIALNUMBER, CERTNOTBEFORE, 
+    CERTNOTAFTER, ISSUERHASH, ISSUERDN, SUBJECTHASH, SUBJECTDN, SUSPENDDATE, REVOKEDATE, 
+    REVOKEREASON, RENEWALDATE, RENEWALPREVID, REQOVERRIDEVALIDITY, CERT_ID, STATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.genertech.lcm.aircraftinfo.dto.certDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from T_INFO_CERTDETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_INFO_CERTDETAIL
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_INFO_CERTDETAIL
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.genertech.lcm.aircraftinfo.dto.certDetail" >
+    insert into T_INFO_CERTDETAIL (ID, CERTAPPROVEDATE, CERTREJECTDATE, 
+      CERTSIGNDATE, CERTSERIALNUMBER, CERTNOTBEFORE, 
+      CERTNOTAFTER, ISSUERHASH, ISSUERDN, 
+      SUBJECTHASH, SUBJECTDN, SUSPENDDATE, 
+      REVOKEDATE, REVOKEREASON, RENEWALDATE, 
+      RENEWALPREVID, REQOVERRIDEVALIDITY, CERT_ID, 
+      STATUS)
+    values (#{id,jdbcType=VARCHAR}, #{certapprovedate,jdbcType=TIMESTAMP}, #{certrejectdate,jdbcType=TIMESTAMP}, 
+      #{certsigndate,jdbcType=TIMESTAMP}, #{certserialnumber,jdbcType=VARCHAR}, #{certnotbefore,jdbcType=TIMESTAMP}, 
+      #{certnotafter,jdbcType=TIMESTAMP}, #{issuerhash,jdbcType=VARCHAR}, #{issuerdn,jdbcType=VARCHAR}, 
+      #{subjecthash,jdbcType=VARCHAR}, #{subjectdn,jdbcType=VARCHAR}, #{suspenddate,jdbcType=TIMESTAMP}, 
+      #{revokedate,jdbcType=TIMESTAMP}, #{revokereason,jdbcType=VARCHAR}, #{renewaldate,jdbcType=TIMESTAMP}, 
+      #{renewalprevid,jdbcType=DECIMAL}, #{reqoverridevalidity,jdbcType=TIMESTAMP}, #{certId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.genertech.lcm.aircraftinfo.dto.certDetail" >
+    insert into T_INFO_CERTDETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="certapprovedate != null" >
+        CERTAPPROVEDATE,
+      </if>
+      <if test="certrejectdate != null" >
+        CERTREJECTDATE,
+      </if>
+      <if test="certsigndate != null" >
+        CERTSIGNDATE,
+      </if>
+      <if test="certserialnumber != null" >
+        CERTSERIALNUMBER,
+      </if>
+      <if test="certnotbefore != null" >
+        CERTNOTBEFORE,
+      </if>
+      <if test="certnotafter != null" >
+        CERTNOTAFTER,
+      </if>
+      <if test="issuerhash != null" >
+        ISSUERHASH,
+      </if>
+      <if test="issuerdn != null" >
+        ISSUERDN,
+      </if>
+      <if test="subjecthash != null" >
+        SUBJECTHASH,
+      </if>
+      <if test="subjectdn != null" >
+        SUBJECTDN,
+      </if>
+      <if test="suspenddate != null" >
+        SUSPENDDATE,
+      </if>
+      <if test="revokedate != null" >
+        REVOKEDATE,
+      </if>
+      <if test="revokereason != null" >
+        REVOKEREASON,
+      </if>
+      <if test="renewaldate != null" >
+        RENEWALDATE,
+      </if>
+      <if test="renewalprevid != null" >
+        RENEWALPREVID,
+      </if>
+      <if test="reqoverridevalidity != null" >
+        REQOVERRIDEVALIDITY,
+      </if>
+      <if test="certId != null" >
+        CERT_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="certapprovedate != null" >
+        #{certapprovedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certrejectdate != null" >
+        #{certrejectdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certsigndate != null" >
+        #{certsigndate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certserialnumber != null" >
+        #{certserialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="certnotbefore != null" >
+        #{certnotbefore,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certnotafter != null" >
+        #{certnotafter,jdbcType=TIMESTAMP},
+      </if>
+      <if test="issuerhash != null" >
+        #{issuerhash,jdbcType=VARCHAR},
+      </if>
+      <if test="issuerdn != null" >
+        #{issuerdn,jdbcType=VARCHAR},
+      </if>
+      <if test="subjecthash != null" >
+        #{subjecthash,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectdn != null" >
+        #{subjectdn,jdbcType=VARCHAR},
+      </if>
+      <if test="suspenddate != null" >
+        #{suspenddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="revokedate != null" >
+        #{revokedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="revokereason != null" >
+        #{revokereason,jdbcType=VARCHAR},
+      </if>
+      <if test="renewaldate != null" >
+        #{renewaldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="renewalprevid != null" >
+        #{renewalprevid,jdbcType=DECIMAL},
+      </if>
+      <if test="reqoverridevalidity != null" >
+        #{reqoverridevalidity,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certId != null" >
+        #{certId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.genertech.lcm.aircraftinfo.dto.certDetailExample" resultType="java.lang.Integer" >
+    select count(*) from T_INFO_CERTDETAIL
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_INFO_CERTDETAIL
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certapprovedate != null" >
+        CERTAPPROVEDATE = #{record.certapprovedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.certrejectdate != null" >
+        CERTREJECTDATE = #{record.certrejectdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.certsigndate != null" >
+        CERTSIGNDATE = #{record.certsigndate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.certserialnumber != null" >
+        CERTSERIALNUMBER = #{record.certserialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certnotbefore != null" >
+        CERTNOTBEFORE = #{record.certnotbefore,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.certnotafter != null" >
+        CERTNOTAFTER = #{record.certnotafter,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.issuerhash != null" >
+        ISSUERHASH = #{record.issuerhash,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issuerdn != null" >
+        ISSUERDN = #{record.issuerdn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjecthash != null" >
+        SUBJECTHASH = #{record.subjecthash,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectdn != null" >
+        SUBJECTDN = #{record.subjectdn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.suspenddate != null" >
+        SUSPENDDATE = #{record.suspenddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.revokedate != null" >
+        REVOKEDATE = #{record.revokedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.revokereason != null" >
+        REVOKEREASON = #{record.revokereason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.renewaldate != null" >
+        RENEWALDATE = #{record.renewaldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.renewalprevid != null" >
+        RENEWALPREVID = #{record.renewalprevid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reqoverridevalidity != null" >
+        REQOVERRIDEVALIDITY = #{record.reqoverridevalidity,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.certId != null" >
+        CERT_ID = #{record.certId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_INFO_CERTDETAIL
+    set ID = #{record.id,jdbcType=VARCHAR},
+      CERTAPPROVEDATE = #{record.certapprovedate,jdbcType=TIMESTAMP},
+      CERTREJECTDATE = #{record.certrejectdate,jdbcType=TIMESTAMP},
+      CERTSIGNDATE = #{record.certsigndate,jdbcType=TIMESTAMP},
+      CERTSERIALNUMBER = #{record.certserialnumber,jdbcType=VARCHAR},
+      CERTNOTBEFORE = #{record.certnotbefore,jdbcType=TIMESTAMP},
+      CERTNOTAFTER = #{record.certnotafter,jdbcType=TIMESTAMP},
+      ISSUERHASH = #{record.issuerhash,jdbcType=VARCHAR},
+      ISSUERDN = #{record.issuerdn,jdbcType=VARCHAR},
+      SUBJECTHASH = #{record.subjecthash,jdbcType=VARCHAR},
+      SUBJECTDN = #{record.subjectdn,jdbcType=VARCHAR},
+      SUSPENDDATE = #{record.suspenddate,jdbcType=TIMESTAMP},
+      REVOKEDATE = #{record.revokedate,jdbcType=TIMESTAMP},
+      REVOKEREASON = #{record.revokereason,jdbcType=VARCHAR},
+      RENEWALDATE = #{record.renewaldate,jdbcType=TIMESTAMP},
+      RENEWALPREVID = #{record.renewalprevid,jdbcType=DECIMAL},
+      REQOVERRIDEVALIDITY = #{record.reqoverridevalidity,jdbcType=TIMESTAMP},
+      CERT_ID = #{record.certId,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.genertech.lcm.aircraftinfo.dto.certDetail" >
+    update T_INFO_CERTDETAIL
+    <set >
+      <if test="certapprovedate != null" >
+        CERTAPPROVEDATE = #{certapprovedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certrejectdate != null" >
+        CERTREJECTDATE = #{certrejectdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certsigndate != null" >
+        CERTSIGNDATE = #{certsigndate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certserialnumber != null" >
+        CERTSERIALNUMBER = #{certserialnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="certnotbefore != null" >
+        CERTNOTBEFORE = #{certnotbefore,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certnotafter != null" >
+        CERTNOTAFTER = #{certnotafter,jdbcType=TIMESTAMP},
+      </if>
+      <if test="issuerhash != null" >
+        ISSUERHASH = #{issuerhash,jdbcType=VARCHAR},
+      </if>
+      <if test="issuerdn != null" >
+        ISSUERDN = #{issuerdn,jdbcType=VARCHAR},
+      </if>
+      <if test="subjecthash != null" >
+        SUBJECTHASH = #{subjecthash,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectdn != null" >
+        SUBJECTDN = #{subjectdn,jdbcType=VARCHAR},
+      </if>
+      <if test="suspenddate != null" >
+        SUSPENDDATE = #{suspenddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="revokedate != null" >
+        REVOKEDATE = #{revokedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="revokereason != null" >
+        REVOKEREASON = #{revokereason,jdbcType=VARCHAR},
+      </if>
+      <if test="renewaldate != null" >
+        RENEWALDATE = #{renewaldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="renewalprevid != null" >
+        RENEWALPREVID = #{renewalprevid,jdbcType=DECIMAL},
+      </if>
+      <if test="reqoverridevalidity != null" >
+        REQOVERRIDEVALIDITY = #{reqoverridevalidity,jdbcType=TIMESTAMP},
+      </if>
+      <if test="certId != null" >
+        CERT_ID = #{certId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.genertech.lcm.aircraftinfo.dto.certDetail" >
+    update T_INFO_CERTDETAIL
+    set CERTAPPROVEDATE = #{certapprovedate,jdbcType=TIMESTAMP},
+      CERTREJECTDATE = #{certrejectdate,jdbcType=TIMESTAMP},
+      CERTSIGNDATE = #{certsigndate,jdbcType=TIMESTAMP},
+      CERTSERIALNUMBER = #{certserialnumber,jdbcType=VARCHAR},
+      CERTNOTBEFORE = #{certnotbefore,jdbcType=TIMESTAMP},
+      CERTNOTAFTER = #{certnotafter,jdbcType=TIMESTAMP},
+      ISSUERHASH = #{issuerhash,jdbcType=VARCHAR},
+      ISSUERDN = #{issuerdn,jdbcType=VARCHAR},
+      SUBJECTHASH = #{subjecthash,jdbcType=VARCHAR},
+      SUBJECTDN = #{subjectdn,jdbcType=VARCHAR},
+      SUSPENDDATE = #{suspenddate,jdbcType=TIMESTAMP},
+      REVOKEDATE = #{revokedate,jdbcType=TIMESTAMP},
+      REVOKEREASON = #{revokereason,jdbcType=VARCHAR},
+      RENEWALDATE = #{renewaldate,jdbcType=TIMESTAMP},
+      RENEWALPREVID = #{renewalprevid,jdbcType=DECIMAL},
+      REQOVERRIDEVALIDITY = #{reqoverridevalidity,jdbcType=TIMESTAMP},
+      CERT_ID = #{certId,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

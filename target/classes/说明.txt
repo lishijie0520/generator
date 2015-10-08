@@ -1,0 +1,4 @@
+3.执行maven命令 
+
+mvn mybatis-generator:generate 
+生成Mybatis文件 

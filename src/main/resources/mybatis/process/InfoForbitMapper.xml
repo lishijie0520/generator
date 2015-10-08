@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.genertech.lcm.biz.dao.InfoForbitMapper" >
+  <resultMap id="BaseResultMap" type="com.genertech.lcm.biz.dto.InfoForbit" >
+    <result column="SWID" property="swid" jdbcType="VARCHAR" />
+    <result column="AIRPLANEID" property="airplaneid" jdbcType="VARCHAR" />
+    <result column="APPLYUSER" property="applyuser" jdbcType="VARCHAR" />
+    <result column="APPLYTIME" property="applytime" jdbcType="TIMESTAMP" />
+    <result column="APPROVEUSER" property="approveuser" jdbcType="VARCHAR" />
+    <result column="APPROVETIME" property="approvetime" jdbcType="TIMESTAMP" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="STATE" property="state" jdbcType="DECIMAL" />
+  </resultMap>
+  <insert id="insert" parameterType="com.genertech.lcm.biz.dto.InfoForbit" >
+    insert into T_INFO_FORBIT (SWID, AIRPLANEID, APPLYUSER, 
+      APPLYTIME, APPROVEUSER, APPROVETIME, 
+      CREATETIME, STATE)
+    values (#{swid,jdbcType=VARCHAR}, #{airplaneid,jdbcType=VARCHAR}, #{applyuser,jdbcType=VARCHAR}, 
+      #{applytime,jdbcType=TIMESTAMP}, #{approveuser,jdbcType=VARCHAR}, #{approvetime,jdbcType=TIMESTAMP}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{state,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.genertech.lcm.biz.dto.InfoForbit" >
+    insert into T_INFO_FORBIT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="swid != null" >
+        SWID,
+      </if>
+      <if test="airplaneid != null" >
+        AIRPLANEID,
+      </if>
+      <if test="applyuser != null" >
+        APPLYUSER,
+      </if>
+      <if test="applytime != null" >
+        APPLYTIME,
+      </if>
+      <if test="approveuser != null" >
+        APPROVEUSER,
+      </if>
+      <if test="approvetime != null" >
+        APPROVETIME,
+      </if>
+      <if test="createtime != null" >
+        CREATETIME,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="swid != null" >
+        #{swid,jdbcType=VARCHAR},
+      </if>
+      <if test="airplaneid != null" >
+        #{airplaneid,jdbcType=VARCHAR},
+      </if>
+      <if test="applyuser != null" >
+        #{applyuser,jdbcType=VARCHAR},
+      </if>
+      <if test="applytime != null" >
+        #{applytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveuser != null" >
+        #{approveuser,jdbcType=VARCHAR},
+      </if>
+      <if test="approvetime != null" >
+        #{approvetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

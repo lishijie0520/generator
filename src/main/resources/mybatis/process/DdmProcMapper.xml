@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.genertech.lcm.biz.dao.DdmProcMapper" >
+  <resultMap id="BaseResultMap" type="com.genertech.lcm.biz.dto.DdmProc" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PROC_DEF_KEY" property="procDefKey" jdbcType="VARCHAR" />
+    <result column="PROC_DEF_ID" property="procDefId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="CHECK_TIME" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="CHECK_USER" property="checkUser" jdbcType="VARCHAR" />
+    <result column="CHECK_REMARK" property="checkRemark" jdbcType="VARCHAR" />
+    <result column="PROVE_TIME" property="proveTime" jdbcType="TIMESTAMP" />
+    <result column="PROVE_USER" property="proveUser" jdbcType="VARCHAR" />
+    <result column="PROVE_REMARK" property="proveRemark" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, PROC_DEF_KEY, PROC_DEF_ID, CREATE_TIME, CREATE_USER, CHECK_TIME, CHECK_USER, 
+    CHECK_REMARK, PROVE_TIME, PROVE_USER, PROVE_REMARK, STATE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.genertech.lcm.biz.dto.DdmProcExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from T_DDM_PROC
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_DDM_PROC
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_DDM_PROC
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.genertech.lcm.biz.dto.DdmProcExample" >
+    delete from T_DDM_PROC
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.genertech.lcm.biz.dto.DdmProc" >
+    insert into T_DDM_PROC (ID, PROC_DEF_KEY, PROC_DEF_ID, 
+      CREATE_TIME, CREATE_USER, CHECK_TIME, 
+      CHECK_USER, CHECK_REMARK, PROVE_TIME, 
+      PROVE_USER, PROVE_REMARK, STATE
+      )
+    values (#{id,jdbcType=VARCHAR}, #{procDefKey,jdbcType=VARCHAR}, #{procDefId,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{checkTime,jdbcType=TIMESTAMP}, 
+      #{checkUser,jdbcType=VARCHAR}, #{checkRemark,jdbcType=VARCHAR}, #{proveTime,jdbcType=TIMESTAMP}, 
+      #{proveUser,jdbcType=VARCHAR}, #{proveRemark,jdbcType=VARCHAR}, #{state,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.genertech.lcm.biz.dto.DdmProc" >
+    insert into T_DDM_PROC
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="procDefKey != null" >
+        PROC_DEF_KEY,
+      </if>
+      <if test="procDefId != null" >
+        PROC_DEF_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="checkTime != null" >
+        CHECK_TIME,
+      </if>
+      <if test="checkUser != null" >
+        CHECK_USER,
+      </if>
+      <if test="checkRemark != null" >
+        CHECK_REMARK,
+      </if>
+      <if test="proveTime != null" >
+        PROVE_TIME,
+      </if>
+      <if test="proveUser != null" >
+        PROVE_USER,
+      </if>
+      <if test="proveRemark != null" >
+        PROVE_REMARK,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="procDefKey != null" >
+        #{procDefKey,jdbcType=VARCHAR},
+      </if>
+      <if test="procDefId != null" >
+        #{procDefId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkUser != null" >
+        #{checkUser,jdbcType=VARCHAR},
+      </if>
+      <if test="checkRemark != null" >
+        #{checkRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="proveTime != null" >
+        #{proveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proveUser != null" >
+        #{proveUser,jdbcType=VARCHAR},
+      </if>
+      <if test="proveRemark != null" >
+        #{proveRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.genertech.lcm.biz.dto.DdmProcExample" resultType="java.lang.Integer" >
+    select count(*) from T_DDM_PROC
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_DDM_PROC
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.procDefKey != null" >
+        PROC_DEF_KEY = #{record.procDefKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.procDefId != null" >
+        PROC_DEF_ID = #{record.procDefId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null" >
+        CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkTime != null" >
+        CHECK_TIME = #{record.checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.checkUser != null" >
+        CHECK_USER = #{record.checkUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkRemark != null" >
+        CHECK_REMARK = #{record.checkRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proveTime != null" >
+        PROVE_TIME = #{record.proveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.proveUser != null" >
+        PROVE_USER = #{record.proveUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proveRemark != null" >
+        PROVE_REMARK = #{record.proveRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        STATE = #{record.state,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_DDM_PROC
+    set ID = #{record.id,jdbcType=VARCHAR},
+      PROC_DEF_KEY = #{record.procDefKey,jdbcType=VARCHAR},
+      PROC_DEF_ID = #{record.procDefId,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      CREATE_USER = #{record.createUser,jdbcType=VARCHAR},
+      CHECK_TIME = #{record.checkTime,jdbcType=TIMESTAMP},
+      CHECK_USER = #{record.checkUser,jdbcType=VARCHAR},
+      CHECK_REMARK = #{record.checkRemark,jdbcType=VARCHAR},
+      PROVE_TIME = #{record.proveTime,jdbcType=TIMESTAMP},
+      PROVE_USER = #{record.proveUser,jdbcType=VARCHAR},
+      PROVE_REMARK = #{record.proveRemark,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.genertech.lcm.biz.dto.DdmProc" >
+    update T_DDM_PROC
+    <set >
+      <if test="procDefKey != null" >
+        PROC_DEF_KEY = #{procDefKey,jdbcType=VARCHAR},
+      </if>
+      <if test="procDefId != null" >
+        PROC_DEF_ID = #{procDefId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="checkTime != null" >
+        CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkUser != null" >
+        CHECK_USER = #{checkUser,jdbcType=VARCHAR},
+      </if>
+      <if test="checkRemark != null" >
+        CHECK_REMARK = #{checkRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="proveTime != null" >
+        PROVE_TIME = #{proveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proveUser != null" >
+        PROVE_USER = #{proveUser,jdbcType=VARCHAR},
+      </if>
+      <if test="proveRemark != null" >
+        PROVE_REMARK = #{proveRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.genertech.lcm.biz.dto.DdmProc" >
+    update T_DDM_PROC
+    set PROC_DEF_KEY = #{procDefKey,jdbcType=VARCHAR},
+      PROC_DEF_ID = #{procDefId,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CHECK_TIME = #{checkTime,jdbcType=TIMESTAMP},
+      CHECK_USER = #{checkUser,jdbcType=VARCHAR},
+      CHECK_REMARK = #{checkRemark,jdbcType=VARCHAR},
+      PROVE_TIME = #{proveTime,jdbcType=TIMESTAMP},
+      PROVE_USER = #{proveUser,jdbcType=VARCHAR},
+      PROVE_REMARK = #{proveRemark,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

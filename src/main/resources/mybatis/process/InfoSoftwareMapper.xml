@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.genertech.lcm.aircraftinfo.dao.InfoSoftwareMapper" >
+  <resultMap id="BaseResultMap" type="com.genertech.lcm.aircraftinfo.dto.InfoSoftware" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PART_NO" property="partNo" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="QUANTITY" property="quantity" jdbcType="DECIMAL" />
+    <result column="PHASE" property="phase" jdbcType="VARCHAR" />
+    <result column="REVISION" property="revision" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="SUBTYPE" property="subtype" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="SERIAL_NAME" property="serialName" jdbcType="VARCHAR" />
+    <result column="EXP_DATE" property="expDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="ATA_ID" property="ataId" jdbcType="VARCHAR" />
+    <result column="SW_SYSTEM" property="swSystem" jdbcType="VARCHAR" />
+    <result column="SW_TYPE" property="swType" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="STAT" property="stat" jdbcType="DECIMAL" />
+    <result column="CONFIG_VERSION" property="configVersion" jdbcType="VARCHAR" />
+    <result column="EFFECT_DATE" property="effectDate" jdbcType="TIMESTAMP" />
+    <result column="DEPARTMENT" property="department" jdbcType="VARCHAR" />
+    <result column="LRU" property="lru" jdbcType="VARCHAR" />
+    <result column="PARTNO_ID" property="partnoId" jdbcType="VARCHAR" />
+    <result column="PREV_ID" property="prevId" jdbcType="VARCHAR" />
+    <result column="IS_LAST" property="isLast" jdbcType="DECIMAL" />
+    <result column="PROPERTIES" property="properties" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, PART_NO, DESCRIPTION, QUANTITY, PHASE, REVISION, TYPE, SUBTYPE, REMARK, SERIAL_NAME, 
+    EXP_DATE, CREATE_DATE, ATA_ID, SW_SYSTEM, SW_TYPE, NAME, STAT, CONFIG_VERSION, EFFECT_DATE, 
+    DEPARTMENT, LRU, PARTNO_ID, PREV_ID, IS_LAST, PROPERTIES
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.genertech.lcm.aircraftinfo.dto.InfoSoftwareExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from T_INFO_SOFTWARE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_INFO_SOFTWARE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from T_INFO_SOFTWARE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.genertech.lcm.aircraftinfo.dto.InfoSoftware" >
+    insert into T_INFO_SOFTWARE (ID, PART_NO, DESCRIPTION, 
+      QUANTITY, PHASE, REVISION, 
+      TYPE, SUBTYPE, REMARK, 
+      SERIAL_NAME, EXP_DATE, CREATE_DATE, 
+      ATA_ID, SW_SYSTEM, SW_TYPE, 
+      NAME, STAT, CONFIG_VERSION, 
+      EFFECT_DATE, DEPARTMENT, LRU, 
+      PARTNO_ID, PREV_ID, IS_LAST, 
+      PROPERTIES)
+    values (#{id,jdbcType=VARCHAR}, #{partNo,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{quantity,jdbcType=DECIMAL}, #{phase,jdbcType=VARCHAR}, #{revision,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{subtype,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{serialName,jdbcType=VARCHAR}, #{expDate,jdbcType=TIMESTAMP}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{ataId,jdbcType=VARCHAR}, #{swSystem,jdbcType=VARCHAR}, #{swType,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{stat,jdbcType=DECIMAL}, #{configVersion,jdbcType=VARCHAR}, 
+      #{effectDate,jdbcType=TIMESTAMP}, #{department,jdbcType=VARCHAR}, #{lru,jdbcType=VARCHAR}, 
+      #{partnoId,jdbcType=VARCHAR}, #{prevId,jdbcType=VARCHAR}, #{isLast,jdbcType=DECIMAL}, 
+      #{properties,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.genertech.lcm.aircraftinfo.dto.InfoSoftware" >
+    insert into T_INFO_SOFTWARE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="partNo != null" >
+        PART_NO,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="quantity != null" >
+        QUANTITY,
+      </if>
+      <if test="phase != null" >
+        PHASE,
+      </if>
+      <if test="revision != null" >
+        REVISION,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="subtype != null" >
+        SUBTYPE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="serialName != null" >
+        SERIAL_NAME,
+      </if>
+      <if test="expDate != null" >
+        EXP_DATE,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="ataId != null" >
+        ATA_ID,
+      </if>
+      <if test="swSystem != null" >
+        SW_SYSTEM,
+      </if>
+      <if test="swType != null" >
+        SW_TYPE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="stat != null" >
+        STAT,
+      </if>
+      <if test="configVersion != null" >
+        CONFIG_VERSION,
+      </if>
+      <if test="effectDate != null" >
+        EFFECT_DATE,
+      </if>
+      <if test="department != null" >
+        DEPARTMENT,
+      </if>
+      <if test="lru != null" >
+        LRU,
+      </if>
+      <if test="partnoId != null" >
+        PARTNO_ID,
+      </if>
+      <if test="prevId != null" >
+        PREV_ID,
+      </if>
+      <if test="isLast != null" >
+        IS_LAST,
+      </if>
+      <if test="properties != null" >
+        PROPERTIES,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="partNo != null" >
+        #{partNo,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=DECIMAL},
+      </if>
+      <if test="phase != null" >
+        #{phase,jdbcType=VARCHAR},
+      </if>
+      <if test="revision != null" >
+        #{revision,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="subtype != null" >
+        #{subtype,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="serialName != null" >
+        #{serialName,jdbcType=VARCHAR},
+      </if>
+      <if test="expDate != null" >
+        #{expDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ataId != null" >
+        #{ataId,jdbcType=VARCHAR},
+      </if>
+      <if test="swSystem != null" >
+        #{swSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="swType != null" >
+        #{swType,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="stat != null" >
+        #{stat,jdbcType=DECIMAL},
+      </if>
+      <if test="configVersion != null" >
+        #{configVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="effectDate != null" >
+        #{effectDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="lru != null" >
+        #{lru,jdbcType=VARCHAR},
+      </if>
+      <if test="partnoId != null" >
+        #{partnoId,jdbcType=VARCHAR},
+      </if>
+      <if test="prevId != null" >
+        #{prevId,jdbcType=VARCHAR},
+      </if>
+      <if test="isLast != null" >
+        #{isLast,jdbcType=DECIMAL},
+      </if>
+      <if test="properties != null" >
+        #{properties,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.genertech.lcm.aircraftinfo.dto.InfoSoftwareExample" resultType="java.lang.Integer" >
+    select count(*) from T_INFO_SOFTWARE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update T_INFO_SOFTWARE
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partNo != null" >
+        PART_NO = #{record.partNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.quantity != null" >
+        QUANTITY = #{record.quantity,jdbcType=DECIMAL},
+      </if>
+      <if test="record.phase != null" >
+        PHASE = #{record.phase,jdbcType=VARCHAR},
+      </if>
+      <if test="record.revision != null" >
+        REVISION = #{record.revision,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subtype != null" >
+        SUBTYPE = #{record.subtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serialName != null" >
+        SERIAL_NAME = #{record.serialName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expDate != null" >
+        EXP_DATE = #{record.expDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createDate != null" >
+        CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ataId != null" >
+        ATA_ID = #{record.ataId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.swSystem != null" >
+        SW_SYSTEM = #{record.swSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.swType != null" >
+        SW_TYPE = #{record.swType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stat != null" >
+        STAT = #{record.stat,jdbcType=DECIMAL},
+      </if>
+      <if test="record.configVersion != null" >
+        CONFIG_VERSION = #{record.configVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.effectDate != null" >
+        EFFECT_DATE = #{record.effectDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.department != null" >
+        DEPARTMENT = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lru != null" >
+        LRU = #{record.lru,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partnoId != null" >
+        PARTNO_ID = #{record.partnoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prevId != null" >
+        PREV_ID = #{record.prevId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isLast != null" >
+        IS_LAST = #{record.isLast,jdbcType=DECIMAL},
+      </if>
+      <if test="record.properties != null" >
+        PROPERTIES = #{record.properties,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update T_INFO_SOFTWARE
+    set ID = #{record.id,jdbcType=VARCHAR},
+      PART_NO = #{record.partNo,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      QUANTITY = #{record.quantity,jdbcType=DECIMAL},
+      PHASE = #{record.phase,jdbcType=VARCHAR},
+      REVISION = #{record.revision,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=VARCHAR},
+      SUBTYPE = #{record.subtype,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      SERIAL_NAME = #{record.serialName,jdbcType=VARCHAR},
+      EXP_DATE = #{record.expDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{record.createDate,jdbcType=TIMESTAMP},
+      ATA_ID = #{record.ataId,jdbcType=VARCHAR},
+      SW_SYSTEM = #{record.swSystem,jdbcType=VARCHAR},
+      SW_TYPE = #{record.swType,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      STAT = #{record.stat,jdbcType=DECIMAL},
+      CONFIG_VERSION = #{record.configVersion,jdbcType=VARCHAR},
+      EFFECT_DATE = #{record.effectDate,jdbcType=TIMESTAMP},
+      DEPARTMENT = #{record.department,jdbcType=VARCHAR},
+      LRU = #{record.lru,jdbcType=VARCHAR},
+      PARTNO_ID = #{record.partnoId,jdbcType=VARCHAR},
+      PREV_ID = #{record.prevId,jdbcType=VARCHAR},
+      IS_LAST = #{record.isLast,jdbcType=DECIMAL},
+      PROPERTIES = #{record.properties,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.genertech.lcm.aircraftinfo.dto.InfoSoftware" >
+    update T_INFO_SOFTWARE
+    <set >
+      <if test="partNo != null" >
+        PART_NO = #{partNo,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        QUANTITY = #{quantity,jdbcType=DECIMAL},
+      </if>
+      <if test="phase != null" >
+        PHASE = #{phase,jdbcType=VARCHAR},
+      </if>
+      <if test="revision != null" >
+        REVISION = #{revision,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="subtype != null" >
+        SUBTYPE = #{subtype,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="serialName != null" >
+        SERIAL_NAME = #{serialName,jdbcType=VARCHAR},
+      </if>
+      <if test="expDate != null" >
+        EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ataId != null" >
+        ATA_ID = #{ataId,jdbcType=VARCHAR},
+      </if>
+      <if test="swSystem != null" >
+        SW_SYSTEM = #{swSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="swType != null" >
+        SW_TYPE = #{swType,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="stat != null" >
+        STAT = #{stat,jdbcType=DECIMAL},
+      </if>
+      <if test="configVersion != null" >
+        CONFIG_VERSION = #{configVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="effectDate != null" >
+        EFFECT_DATE = #{effectDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="department != null" >
+        DEPARTMENT = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="lru != null" >
+        LRU = #{lru,jdbcType=VARCHAR},
+      </if>
+      <if test="partnoId != null" >
+        PARTNO_ID = #{partnoId,jdbcType=VARCHAR},
+      </if>
+      <if test="prevId != null" >
+        PREV_ID = #{prevId,jdbcType=VARCHAR},
+      </if>
+      <if test="isLast != null" >
+        IS_LAST = #{isLast,jdbcType=DECIMAL},
+      </if>
+      <if test="properties != null" >
+        PROPERTIES = #{properties,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.genertech.lcm.aircraftinfo.dto.InfoSoftware" >
+    update T_INFO_SOFTWARE
+    set PART_NO = #{partNo,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      QUANTITY = #{quantity,jdbcType=DECIMAL},
+      PHASE = #{phase,jdbcType=VARCHAR},
+      REVISION = #{revision,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=VARCHAR},
+      SUBTYPE = #{subtype,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      SERIAL_NAME = #{serialName,jdbcType=VARCHAR},
+      EXP_DATE = #{expDate,jdbcType=TIMESTAMP},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      ATA_ID = #{ataId,jdbcType=VARCHAR},
+      SW_SYSTEM = #{swSystem,jdbcType=VARCHAR},
+      SW_TYPE = #{swType,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      STAT = #{stat,jdbcType=DECIMAL},
+      CONFIG_VERSION = #{configVersion,jdbcType=VARCHAR},
+      EFFECT_DATE = #{effectDate,jdbcType=TIMESTAMP},
+      DEPARTMENT = #{department,jdbcType=VARCHAR},
+      LRU = #{lru,jdbcType=VARCHAR},
+      PARTNO_ID = #{partnoId,jdbcType=VARCHAR},
+      PREV_ID = #{prevId,jdbcType=VARCHAR},
+      IS_LAST = #{isLast,jdbcType=DECIMAL},
+      PROPERTIES = #{properties,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
